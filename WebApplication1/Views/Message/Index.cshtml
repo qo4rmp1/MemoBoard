@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Article>
+@{
+	ViewBag.Title = "Memo";
+}
+
+<h2>Index</h2>
+
+
+<div>
+	@if (Model != null)
+	{
+<table>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>Title</td>
+				<td>@item.Title</td>
+			</tr>
+			<tr>
+				<td>Content</td>
+				<td>@item.Content</td>
+			</tr>
+			<tr>
+				<td>Time</td>
+				<td>@item.Time</td>
+			</tr>
+		}
+	</tbody>
+</table>
+	}
+</div>
+<br />
+
+<div>@Html.ActionLink("Let's memo!", "Create")</div>
