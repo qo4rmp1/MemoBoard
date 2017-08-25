@@ -51,7 +51,7 @@ namespace WebApplication1.Services
         {
             Guestbooks Data = Find(id);
 
-            return (Data != null && string.IsNullOrEmpty(Data.Reply));
+            return (Data != null && Data.ReplyTime == null);
         }
     }
 }
