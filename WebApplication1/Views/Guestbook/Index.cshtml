@@ -1,0 +1,52 @@
+﻿@model WebApplication1.Models.GestbookVM
+
+@{
+    ViewBag.Title = "Index";
+}
+<div id="CreateDate">
+	@Html.Action("Create", "Guestbook", FormMethod.Get)
+</div>
+<h2>留言板內容</h2>
+
+@using (Html.BeginForm("Index", "Guestbook", FormMethod.Get))
+{
+<table class="table">
+	@if (!Model.DataList.Count.Equals(0))
+	{
+		foreach (var item in Model.DataList)
+		{
+			<tr>
+				<td>@Html.DisplayNameFor(model => model.DataList[0].Name)</td>
+				<td>@item.Name</td>
+				<td>@Html.DisplayNameFor(model => model.DataList[0].CreateTime)</td>
+				<td>@item.CreateTime</td>
+			</tr>
+			<tr>
+				<td>@Html.DisplayNameFor(model => model.DataList[0].Content)</td>
+				<td colspan="3">@item.Content</td>
+			</tr>
+			<tr>
+				<td>@Html.DisplayNameFor(model => model.DataList[0].Reply)</td>
+				<td colspan="3">@item.Reply</td>
+			</tr>
+			<tr>
+				<td>@Html.DisplayNameFor(model => model.DataList[0].ReplyTime)</td>
+				<td>@item.ReplyTime</td>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td>
+					@Html.ActionLink("Edit", "修改", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Details", "回覆", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Delete", "刪除", new { /* id=item.PrimaryKey */ })
+				</td>
+			</tr>
+		}
+	}
+	else
+	{
+		<tr><td colspan="4">資料庫內查無資料</td></tr>
+	}
+
+</table>
+}
