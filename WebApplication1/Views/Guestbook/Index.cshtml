@@ -10,6 +10,14 @@
 
 @using (Html.BeginForm("Index", "Guestbook", FormMethod.Get))
 {
+	<table class="table">
+		<tr>
+			<td>@Html.LabelFor(model => model.Search)</td>
+			<td>@Html.TextBoxFor(model => model.Search)</td>
+			<td><input type="submit" value="搜尋" /></td>
+		</tr>
+	</table>
+
 <table class="table">
 	@if (!Model.DataList.Count.Equals(0))
 	{
@@ -48,7 +56,40 @@
 		<tr><td colspan="4">資料庫內查無資料</td></tr>
 	}
 
+	<tr>
+		<td>
+			@if (Model.Paging.NowPage > 1)
+			{
+				if (Model.Paging.NowPage > 2)
+				{
+					@Html.ActionLink(" << ", "Index", new { Page = 1, Search = Model.Search })
+				}
+
+				@Html.ActionLink(" < ", "Index", new { Page = Model.Paging.NowPage - 1, Search = Model.Search })
+			}
+		</td>
+		<td>
+			@{
+				int Page;
+			}
+			@for (Page = Model.Paging.NowPage - 6; Page < Model.Paging.NowPage + 6; Page++)
+			{
+				if (Page > 0 && Page <= Model.Paging.MaxPage)
+				{
+					if (Page == Model.Paging.NowPage)
+					{
+						<b>@Page</b>
+					}
+					else
+					{
+						@Html.ActionLink(Page.ToString(), "Index", new { Page = Page, Search = Model.Search })
+					}
+				}
+			}
+		</td>
+	</tr>
 </table>
+
 }
 @*載入驗證所需的Javascript*@
 @section Scripts {

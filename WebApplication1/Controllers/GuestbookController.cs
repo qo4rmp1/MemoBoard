@@ -12,10 +12,14 @@ namespace WebApplication1.Controllers
     {
         GestbooksDBService guestbooksService = new GestbooksDBService();
         // GET: Guestbook
-        public ActionResult Index()
+        public ActionResult Index(string Search, int Page = 1)
         {
             GestbookVM data = new GestbookVM();
-            data.DataList = guestbooksService.GetDataList();
+
+            data.Search = Search;
+            data.Paging = new ForPaging(Page);
+
+            data.DataList = guestbooksService.GetDataList(data.Search, data.Paging);
             return View(data);
         }
 

@@ -11,9 +11,42 @@ namespace WebApplication1.Services
     {
         public messageEntities db = new messageEntities();
 
-        public List<Guestbooks> GetDataList()
+        public List<Guestbooks> GetDataList(string Search, ForPaging Paging)
         {
-            return db.Guestbooks.ToList();
+            IQueryable<Guestbooks> data;
+
+            if (string.IsNullOrEmpty(Search))
+            {
+                data = GetDataList(Paging);
+            }
+            else
+            {
+                data = GetDataList(Paging, Search);
+            }
+
+            return data.OrderByDescending(p => p.Id).Skip((Paging.NowPage - 1) * Paging.ItemNo).Take(Paging.ItemNo).ToList();
+        }
+        public IQueryable<Guestbooks> GetDataList(ForPaging Paging)
+        {
+            IQueryable<Guestbooks> data = db.Guestbooks;
+
+            Paging.MaxPage = (int)Math.Ceiling(Convert.ToDouble(data.Count() / Paging.ItemNo));
+            Paging.SetRightPage();
+
+            return data;
+        }
+        public IQueryable<Guestbooks> GetDataList(ForPaging Paging, string Search)
+        {
+            IQueryable<Guestbooks> data = db.Guestbooks.AsQueryable();
+
+            if (string.IsNullOrEmpty(Search) == false)
+            {
+                data = db.Guestbooks.Where(p => p.Name.Contains(Search) || p.Content.Contains(Search) || p.Reply.Contains(Search));
+
+                Paging.MaxPage = (int)Math.Ceiling(Convert.ToDouble(data.Count() / Paging.ItemNo));
+                Paging.SetRightPage();
+            }
+            return data;
         }
         public void InsertGustbooks(Guestbooks newData)
         {
