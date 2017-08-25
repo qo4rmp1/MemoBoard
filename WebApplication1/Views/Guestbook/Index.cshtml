@@ -36,9 +36,9 @@
 			</tr>
 			<tr>
 				<td>
-					@Html.ActionLink("修改", "Edit", new { /* id=item.PrimaryKey */ }) |
-					@Html.ActionLink("回覆", "Reply", new { /* id=item.PrimaryKey */ }) |
-					@Html.ActionLink("刪除", "Delete", new { /* id=item.PrimaryKey */ })
+					@Html.ActionLink("修改", "Edit", new { Id = item.Id}) |
+					@Html.ActionLink("回覆", "Reply", new { Id = item.Id }) |
+					@Html.ActionLink("刪除", "Delete", new { Id = item.Id })
 				</td>
 			</tr>
 		}

@@ -73,5 +73,11 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(int id)
+        {
+            guestbooksService.Delete(id);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -53,5 +53,15 @@ namespace WebApplication1.Services
 
             return (Data != null && Data.ReplyTime == null);
         }
+        public void Delete(int id)
+        {
+            Guestbooks Data = Find(id);
+
+            if (Data != null)
+            {
+                db.Guestbooks.Remove(Data);
+                db.SaveChanges();
+            }
+        }
     }
 }
