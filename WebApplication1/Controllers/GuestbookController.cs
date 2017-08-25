@@ -52,5 +52,26 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult Reply(int id)
+        {
+            Guestbooks Data = guestbooksService.Find(id);
+            return View(Data);
+        }
+
+        [HttpPost]
+        public ActionResult Reply(int id, [Bind(Include = "Reply")]Guestbooks replyData)
+        {
+            if (guestbooksService.CheckUpdate(id))
+            {
+                replyData.Id = id;
+                guestbooksService.ReplyGuestbooks(replyData);
+            }
+            else
+            {
+                ModelState.AddModelError("", "有回覆的留言不可編輯");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
