@@ -233,6 +233,7 @@
     <Content Include="Views\Message\Create.cshtml" />
     <Content Include="Views\Guestbook\Index.cshtml" />
     <Content Include="Views\Guestbook\Create.cshtml" />
+    <Content Include="Views\Guestbook\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

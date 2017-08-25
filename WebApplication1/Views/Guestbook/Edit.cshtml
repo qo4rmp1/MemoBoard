@@ -1,0 +1,55 @@
+﻿@model WebApplication1.Models.Guestbooks
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Guestbooks</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+				@if (Model.ReplyTime == null)
+				{
+					<input type="submit" value="修改留言" class="btn btn-default" />
+				}
+				else
+				{
+					<text>此留言已回覆，無法修改</text>
+					@Html.ActionLink("Back to List", "Index")
+				}
+            </div>
+        </div>
+    </div>
+}
+
+@*載入驗證所需的Javascript*@
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
