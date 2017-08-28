@@ -8,7 +8,7 @@ using WebApplication1.Services;
 
 namespace WebApplication1.Models
 {
-    public class GestbookVM
+    public class GuestbookVM
     {
         [DisplayName("搜尋")]
         public string Search { get; set; }

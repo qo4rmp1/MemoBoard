@@ -12,17 +12,27 @@ namespace WebApplication1.Controllers
     {
         GestbooksDBService guestbooksService = new GestbooksDBService();
         // GET: Guestbook
-        public ActionResult Index(string Search, int Page = 1)
+        public ActionResult Index()
         {
-            GestbookVM data = new GestbookVM();
+            return View();
+        }
+
+        public ActionResult GetDataList(string Search, int Page = 1)
+        {
+            GuestbookVM data = new GuestbookVM();
 
             data.Search = Search;
             data.Paging = new ForPaging(Page);
 
             data.DataList = guestbooksService.GetDataList(data.Search, data.Paging);
-            return View(data);
+            return PartialView(data);
         }
 
+        [HttpPost]
+        public ActionResult GetDataList([Bind(Include = "Search")]GuestbookVM Data)
+        {
+            return RedirectToAction("GetDataList", new { Search = Data.Search });
+        }
         public ActionResult Create()
         {
             // 使用部分檢視
