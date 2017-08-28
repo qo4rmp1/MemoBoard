@@ -41,7 +41,7 @@ namespace WebApplication1.Services
 
             if (string.IsNullOrEmpty(Search) == false)
             {
-                data = db.Guestbooks.Where(p => p.Name.Contains(Search) || p.Content.Contains(Search) || p.Reply.Contains(Search));
+                data = db.Guestbooks.Where(p => p.Account.Contains(Search) || p.Content.Contains(Search) || p.Reply.Contains(Search));
 
                 Paging.MaxPage = (int)Math.Ceiling(Convert.ToDouble(data.Count() / Paging.ItemNo));
                 Paging.SetRightPage();
@@ -64,7 +64,7 @@ namespace WebApplication1.Services
 
             if (OldData != null)
             {
-                OldData.Name = updateData.Name;
+                OldData.Account = updateData.Account;
                 OldData.Content = updateData.Content;
                 db.SaveChanges();
             }
