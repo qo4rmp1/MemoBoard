@@ -14,6 +14,17 @@
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="FileContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Size" Type="int" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Guestbooks">
           <Key>
             <PropertyRef Name="Id" />
@@ -50,6 +61,7 @@
         </Association>
         <EntityContainer Name="messageModelStoreContainer">
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileContent" EntityType="Self.FileContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guestbooks" EntityType="Self.Guestbooks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account" Association="Self.FK_Account">
@@ -78,6 +90,7 @@
             <End Role="Members" EntitySet="Members" />
             <End Role="Guestbooks" EntitySet="Guestbooks" />
           </AssociationSet>
+          <EntitySet Name="FileContent" EntityType="messageModel.FileContent" />
         </EntityContainer>
         <EntityType Name="Guestbooks">
           <Key>
@@ -115,6 +128,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FileContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -152,6 +176,18 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileContent">
+            <EntityTypeMapping TypeName="messageModel.FileContent">
+              <MappingFragment StoreEntitySet="FileContent">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

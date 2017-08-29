@@ -109,7 +109,7 @@ namespace WebApplication1.Services
             string Msg = string.Empty;
             Members members = db.Members.Find(UserName);
             
-            if (PasswordCheck(members, Password)
+            if (PasswordCheck(members, Password))
             {
                 members.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword, "SHA1");
                 db.SaveChanges();

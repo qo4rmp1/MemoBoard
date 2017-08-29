@@ -1,0 +1,79 @@
+﻿@model WebApplication1.Models.FileVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("UploadFile", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	<input type="file" name="Upload" />
+	<input type="submit" value="上傳" />
+}
+
+<table class="table">
+	<thead>
+		<tr>
+			<td>@Html.DisplayNameFor(model => model.FileList[0].Name)</td>
+			<td>@Html.DisplayNameFor(model => model.FileList[0].CreateTime)</td>
+			<td>@Html.DisplayNameFor(model => model.FileList[0].Size)</td>
+		</tr>
+	</thead>
+	@if (!Model.FileList.Count.Equals(0))
+	{
+		foreach (var item in Model.FileList)
+		{
+			<tr>
+				<td>@item.Name</td>
+				<td>@item.CreateTime</td>
+				<td>@item.Size</td>
+				<td>@Html.ActionLink("下載", "DownloadFile", new { Id = item.Id })</td>
+			</tr>
+		}
+	}
+	else
+	{
+		<tr><td colspan="3">查無資料</td></tr>
+	}
+	<tr>
+		<td>
+			@if (Model.Paging.NowPage > 1)
+			{
+				if (Model.Paging.NowPage != 1)
+				{
+					@Html.ActionLink("<<", "Index", new { Page = 1 })
+
+				}
+				@Html.ActionLink("<", "Index", new { Page = Model.Paging.NowPage - 1 })
+			}
+		</td>
+		<td>
+			@for (int i = Model.Paging.NowPage - 6; i < Model.Paging.NowPage + 6; i++)
+			{
+				if (i > 0 && i <= Model.Paging.MaxPage)
+				{
+					if (i == Model.Paging.NowPage)
+					{
+						<b>@i</b>
+					}
+					else
+					{
+					  @Html.ActionLink(i.ToString(), "Index", new { Page = i })
+					}
+				}
+			}
+		</td>
+		<td>
+			@if (Model.Paging.NowPage < Model.Paging.MaxPage)
+			{
+				@Html.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 })
+
+				if (Model.Paging.NowPage != Model.Paging.MaxPage)
+				{
+					@Html.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage })
+				}
+			}
+		</td>
+	</tr>
+
+</table>

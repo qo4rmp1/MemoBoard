@@ -35,5 +35,10 @@ namespace WebApplication1.Services
                 this.NowPage = 1;
             }
         }
+        
+        public void SetMaxPage(int Total)
+        {
+            MaxPage = (int)Math.Ceiling(Convert.ToDouble(Total / ItemNo));
+        }
     }
 }

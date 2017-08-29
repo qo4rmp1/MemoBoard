@@ -28,5 +28,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<Guestbooks> Guestbooks { get; set; }
         public virtual DbSet<Members> Members { get; set; }
+        public virtual DbSet<FileContent> FileContent { get; set; }
     }
 }

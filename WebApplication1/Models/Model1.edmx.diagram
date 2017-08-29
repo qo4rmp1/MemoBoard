@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="messageModel.Members" Width="1.5" PointX="2.625" PointY="0.75" />
         <EntityTypeShape EntityType="messageModel.Table" Width="1.5" PointX="7.125" PointY="0.75" />
         <AssociationConnector Association="messageModel.FK_Account" />
+        <EntityTypeShape EntityType="messageModel.FileContent" Width="1.5" PointX="6.625" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
