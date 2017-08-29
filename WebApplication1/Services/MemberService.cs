@@ -14,7 +14,6 @@ namespace WebApplication1.Services
 
         public MemberService()
         {
-            
         }
 
         public void Register(Members newMember)
@@ -103,6 +102,24 @@ namespace WebApplication1.Services
             }
 
             return Role;
+        }
+
+        public string ChangePassword(string UserName, string Password, string NewPassword)
+        {
+            string Msg = string.Empty;
+            Members members = db.Members.Find(UserName);
+            
+            if (PasswordCheck(members, Password)
+            {
+                members.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(NewPassword, "SHA1");
+                db.SaveChanges();
+                Msg = "修改密碼成功";
+            }
+            else
+            {
+                Msg = "就密碼輸入錯誤";
+            }
+            return Msg;
         }
     }
 }

@@ -19,8 +19,8 @@
 				foreach (var item in Model.DataList)
 				{
 					<tr>
-						<td>@Html.DisplayNameFor(model => model.DataList[0].Account)</td>
-						<td>@item.Account</td>
+						<td>@Html.DisplayNameFor(model => model.DataList[0].Members.Name)</td>
+						<td>@item.Members.Name</td>
 						<td>@Html.DisplayNameFor(model => model.DataList[0].CreateTime)</td>
 						<td>@item.CreateTime</td>
 					</tr>
@@ -39,10 +39,18 @@
 					</tr>
 					<tr>
 						<td>
-							@Html.ActionLink("修改", "Edit", new { Id = item.Id }) |
-							@Html.ActionLink("回覆", "Reply", new { Id = item.Id }) |
-							@Html.ActionLink("刪除", "Delete", new { Id = item.Id })
+							@if (User.Identity.IsAuthenticated)
+							{
+								@Html.ActionLink("修改", "Edit", new { Id = item.Id }) 
+
+								if (User.IsInRole("Admin"))
+								{
+									@Html.ActionLink("回覆", "Reply", new { Id = item.Id })
+									@Html.ActionLink("刪除", "Delete", new { Id = item.Id })
+								}
+							}
 						</td>
+
 					</tr>
 				}
 			}

@@ -150,6 +150,7 @@
     <Compile Include="Models\Article.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordVM.cs" />
     <Compile Include="Models\GestbookVM.cs" />
     <Compile Include="Models\GuestbookMetadata.cs" />
     <Compile Include="Models\Guestbooks.cs">
@@ -252,6 +253,7 @@
     <Content Include="Views\Member\RegisterResult.cshtml" />
     <Content Include="Views\Member\EmailValidate.cshtml" />
     <Content Include="Views\Member\Login.cshtml" />
+    <Content Include="Views\Member\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

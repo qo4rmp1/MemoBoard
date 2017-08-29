@@ -39,25 +39,30 @@ namespace WebApplication1.Controllers
             return PartialView();
         }
 
+        [Authorize]
         [HttpPost]
-        public ActionResult Add([Bind(Include = "Name,Content")]Guestbooks data)
+        public ActionResult Add([Bind(Include = "Content")]Guestbooks data)
         {
+            data.Account = User.Identity.Name;
             guestbooksService.InsertGustbooks(data);
             return RedirectToAction("Index", "Guestbook");
         }
 
+        [Authorize]
         public ActionResult Edit(int id)
         {
             Guestbooks Data = guestbooksService.Find(id);
             return View(Data);
         }
 
+        [Authorize]
         [HttpPost]
-        public ActionResult Edit(int id, [Bind(Include ="Name,Content")]Guestbooks updateData)
+        public ActionResult Edit(int id, [Bind(Include ="Content")]Guestbooks updateData)
         {
             if (guestbooksService.CheckUpdate(id))
             {
                 updateData.Id = id;
+                updateData.Account = User.Identity.Name;
                 guestbooksService.Update(updateData);
             }
             else
@@ -67,6 +72,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Reply(int id)
         {
             Guestbooks Data = guestbooksService.Find(id);
@@ -74,6 +80,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Reply(int id, [Bind(Include = "Reply")]Guestbooks replyData)
         {
             if (guestbooksService.CheckUpdate(id))
@@ -88,6 +95,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             guestbooksService.Delete(id);

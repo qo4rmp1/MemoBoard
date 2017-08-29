@@ -116,5 +116,21 @@ namespace WebApplication1.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordVM ChangeData)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewData["ChangeState"] = MemberService.ChangePassword(User.Identity.Name, ChangeData.Password, ChangeData.NewPassword);
+            }
+            return View();
+        }
     }
 }
