@@ -18,6 +18,9 @@ namespace WebApplication1.Models
         public Members()
         {
             this.Guestbooks = new HashSet<Guestbooks>();
+            this.ForumAlbum = new HashSet<ForumAlbum>();
+            this.ForumArticle = new HashSet<ForumArticle>();
+            this.ForumMessage = new HashSet<ForumMessage>();
         }
     
         public string Account { get; set; }
@@ -29,5 +32,11 @@ namespace WebApplication1.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Guestbooks> Guestbooks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumAlbum> ForumAlbum { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumArticle> ForumArticle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumMessage> ForumMessage { get; set; }
     }
 }

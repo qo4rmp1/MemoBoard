@@ -29,5 +29,8 @@ namespace WebApplication1.Models
         public virtual DbSet<Guestbooks> Guestbooks { get; set; }
         public virtual DbSet<Members> Members { get; set; }
         public virtual DbSet<FileContent> FileContent { get; set; }
+        public virtual DbSet<ForumAlbum> ForumAlbum { get; set; }
+        public virtual DbSet<ForumArticle> ForumArticle { get; set; }
+        public virtual DbSet<ForumMessage> ForumMessage { get; set; }
     }
 }

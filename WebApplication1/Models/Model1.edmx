@@ -25,6 +25,39 @@
           <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ForumAlbum">
+          <Key>
+            <PropertyRef Name="AlbId" />
+          </Key>
+          <Property Name="AlbId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Size" Type="int" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumArticle">
+          <Key>
+            <PropertyRef Name="AId" />
+          </Key>
+          <Property Name="AId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="Watch" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumMessage">
+          <Key>
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="MId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AId" Type="int" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Content" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Guestbooks">
           <Key>
             <PropertyRef Name="Id" />
@@ -59,14 +92,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AM_Account">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="ForumAlbum" Type="Self.ForumAlbum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="ForumAlbum">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FM_Account">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="ForumArticle" Type="Self.ForumArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="ForumArticle">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MA_AId">
+          <End Role="ForumArticle" Type="Self.ForumArticle" Multiplicity="1" />
+          <End Role="ForumMessage" Type="Self.ForumMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumArticle">
+              <PropertyRef Name="AId" />
+            </Principal>
+            <Dependent Role="ForumMessage">
+              <PropertyRef Name="AId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MM_Account">
+          <End Role="Members" Type="Self.Members" Multiplicity="1" />
+          <End Role="ForumMessage" Type="Self.ForumMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="ForumMessage">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="messageModelStoreContainer">
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileContent" EntityType="Self.FileContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumAlbum" EntityType="Self.ForumAlbum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumArticle" EntityType="Self.ForumArticle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumMessage" EntityType="Self.ForumMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guestbooks" EntityType="Self.Guestbooks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Members" EntityType="Self.Members" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account" Association="Self.FK_Account">
             <End Role="Members" EntitySet="Members" />
             <End Role="Guestbooks" EntitySet="Guestbooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AM_Account" Association="Self.FK_AM_Account">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ForumAlbum" EntitySet="ForumAlbum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FM_Account" Association="Self.FK_FM_Account">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ForumArticle" EntitySet="ForumArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MA_AId" Association="Self.FK_MA_AId">
+            <End Role="ForumArticle" EntitySet="ForumArticle" />
+            <End Role="ForumMessage" EntitySet="ForumMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MM_Account" Association="Self.FK_MM_Account">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ForumMessage" EntitySet="ForumMessage" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -91,6 +191,25 @@
             <End Role="Guestbooks" EntitySet="Guestbooks" />
           </AssociationSet>
           <EntitySet Name="FileContent" EntityType="messageModel.FileContent" />
+          <EntitySet Name="ForumAlbum" EntityType="messageModel.ForumAlbum" />
+          <EntitySet Name="ForumArticle" EntityType="messageModel.ForumArticle" />
+          <EntitySet Name="ForumMessage" EntityType="messageModel.ForumMessage" />
+          <AssociationSet Name="FK_AM_Account" Association="messageModel.FK_AM_Account">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ForumAlbum" EntitySet="ForumAlbum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FM_Account" Association="messageModel.FK_FM_Account">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ForumArticle" EntitySet="ForumArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MA_AId" Association="messageModel.FK_MA_AId">
+            <End Role="ForumArticle" EntitySet="ForumArticle" />
+            <End Role="ForumMessage" EntitySet="ForumMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MM_Account" Association="messageModel.FK_MM_Account">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="ForumMessage" EntitySet="ForumMessage" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Guestbooks">
           <Key>
@@ -115,6 +234,9 @@
           <Property Name="AuthCode" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Guestbooks" Relationship="messageModel.FK_Account" FromRole="Members" ToRole="Guestbooks" />
+          <NavigationProperty Name="ForumAlbum" Relationship="messageModel.FK_AM_Account" FromRole="Members" ToRole="ForumAlbum" />
+          <NavigationProperty Name="ForumArticle" Relationship="messageModel.FK_FM_Account" FromRole="Members" ToRole="ForumArticle" />
+          <NavigationProperty Name="ForumMessage" Relationship="messageModel.FK_MM_Account" FromRole="Members" ToRole="ForumMessage" />
         </EntityType>
         <Association Name="FK_Account">
           <End Type="messageModel.Members" Role="Members" Multiplicity="1" />
@@ -139,6 +261,92 @@
           <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="ForumAlbum">
+          <Key>
+            <PropertyRef Name="AlbId" />
+          </Key>
+          <Property Name="AlbId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Members" Relationship="messageModel.FK_AM_Account" FromRole="ForumAlbum" ToRole="Members" />
+        </EntityType>
+        <EntityType Name="ForumArticle">
+          <Key>
+            <PropertyRef Name="AId" />
+          </Key>
+          <Property Name="AId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Watch" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Members" Relationship="messageModel.FK_FM_Account" FromRole="ForumArticle" ToRole="Members" />
+          <NavigationProperty Name="ForumMessage" Relationship="messageModel.FK_MA_AId" FromRole="ForumArticle" ToRole="ForumMessage" />
+        </EntityType>
+        <EntityType Name="ForumMessage">
+          <Key>
+            <PropertyRef Name="MId" />
+          </Key>
+          <Property Name="MId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AId" Type="Int32" Nullable="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ForumArticle" Relationship="messageModel.FK_MA_AId" FromRole="ForumMessage" ToRole="ForumArticle" />
+          <NavigationProperty Name="Members" Relationship="messageModel.FK_MM_Account" FromRole="ForumMessage" ToRole="Members" />
+        </EntityType>
+        <Association Name="FK_AM_Account">
+          <End Type="messageModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="messageModel.ForumAlbum" Role="ForumAlbum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="ForumAlbum">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FM_Account">
+          <End Type="messageModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="messageModel.ForumArticle" Role="ForumArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="ForumArticle">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MA_AId">
+          <End Type="messageModel.ForumArticle" Role="ForumArticle" Multiplicity="1" />
+          <End Type="messageModel.ForumMessage" Role="ForumMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumArticle">
+              <PropertyRef Name="AId" />
+            </Principal>
+            <Dependent Role="ForumMessage">
+              <PropertyRef Name="AId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MM_Account">
+          <End Type="messageModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="messageModel.ForumMessage" Role="ForumMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="Account" />
+            </Principal>
+            <Dependent Role="ForumMessage">
+              <PropertyRef Name="Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -188,6 +396,42 @@
                 <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumAlbum">
+            <EntityTypeMapping TypeName="messageModel.ForumAlbum">
+              <MappingFragment StoreEntitySet="ForumAlbum">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="AlbId" ColumnName="AlbId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumArticle">
+            <EntityTypeMapping TypeName="messageModel.ForumArticle">
+              <MappingFragment StoreEntitySet="ForumArticle">
+                <ScalarProperty Name="Watch" ColumnName="Watch" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AId" ColumnName="AId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumMessage">
+            <EntityTypeMapping TypeName="messageModel.ForumMessage">
+              <MappingFragment StoreEntitySet="ForumMessage">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="AId" ColumnName="AId" />
+                <ScalarProperty Name="MId" ColumnName="MId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

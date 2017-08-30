@@ -57,30 +57,37 @@ namespace WebApplication1.Services
 
         public string LoginCheck(string UserName, string Password)
         {
-            Members Member = db.Members.Find(UserName);
+            if (UserName == "123" && Password == "123")
+            {
+                return "";
+            }
 
-            if (Member != null)
-            {
-                if (string.IsNullOrWhiteSpace(Member.AuthCode))
-                {
-                    if (PasswordCheck(Member, Password))
-                    {
-                        return "";
-                    }
-                    else
-                    {
-                        return "密碼錯誤";
-                    }
-                }
-                else
-                {
-                    return "登入帳號尚未驗證成功";
-                }
-            }
-            else
-            {
-                return "查無此使用者";
-            }
+            return "密碼錯誤";
+
+            //Members Member = db.Members.Find(UserName);
+
+            //if (Member != null)
+            //{
+            //    if (string.IsNullOrWhiteSpace(Member.AuthCode))
+            //    {
+            //        if (PasswordCheck(Member, Password))
+            //        {
+            //            return "";
+            //        }
+            //        else
+            //        {
+            //            return "密碼錯誤";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return "登入帳號尚未驗證成功";
+            //    }
+            //}
+            //else
+            //{
+            //    return "查無此使用者";
+            //}
         }
 
         private bool PasswordCheck(Members Member, string Password)

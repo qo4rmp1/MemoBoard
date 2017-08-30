@@ -11,6 +11,13 @@
         <EntityTypeShape EntityType="messageModel.Table" Width="1.5" PointX="7.125" PointY="0.75" />
         <AssociationConnector Association="messageModel.FK_Account" />
         <EntityTypeShape EntityType="messageModel.FileContent" Width="1.5" PointX="6.625" PointY="0.75" />
+        <EntityTypeShape EntityType="messageModel.ForumAlbum" Width="1.5" PointX="2.625" PointY="4.125" />
+        <EntityTypeShape EntityType="messageModel.ForumArticle" Width="1.5" PointX="4.625" PointY="4.125" />
+        <EntityTypeShape EntityType="messageModel.ForumMessage" Width="1.5" PointX="6.625" PointY="4.125" />
+        <AssociationConnector Association="messageModel.FK_AM_Account" />
+        <AssociationConnector Association="messageModel.FK_FM_Account" />
+        <AssociationConnector Association="messageModel.FK_MA_AId" />
+        <AssociationConnector Association="messageModel.FK_MM_Account" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
