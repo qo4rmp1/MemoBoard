@@ -45,12 +45,7 @@ namespace WebApplication1.Services
             };
 
             db.FileContent.Add(filecontent);
-        }
-
-        public string DownloadFile()
-        {
-            string Msg = string.Empty;
-            return Msg;
+            db.SaveChanges();
         }
     }
 }

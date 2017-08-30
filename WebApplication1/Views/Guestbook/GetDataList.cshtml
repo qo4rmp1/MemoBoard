@@ -91,6 +91,19 @@
 					}
 				</td>
 			</tr>
+			<tr>
+		<td>
+			@if (Model.Paging.NowPage < Model.Paging.MaxPage)
+			{
+				@Html.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 })
+
+				if (Model.Paging.NowPage != Model.Paging.MaxPage)
+				{
+					@Html.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage })
+				}
+			}
+		</td>
+	</tr>
 		</table>
 
 						}
