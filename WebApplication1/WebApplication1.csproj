@@ -154,6 +154,9 @@
     <Compile Include="Models\Article.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ArticleRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ArticleVM.cs" />
     <Compile Include="Models\ChangePasswordVM.cs" />
     <Compile Include="Models\EFGeneratePartialClass.cs">
@@ -161,11 +164,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EFRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EFUnitOfWork.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FileContent.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FileContent.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FileContentRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FileVM.cs" />
     <Compile Include="Models\ForumAlbum.cs">
@@ -174,11 +186,17 @@
     <Compile Include="Models\ForumAlbum.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForumAlbumRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ForumArticle.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ForumArticle.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ForumArticleRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ForumMessage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -186,13 +204,26 @@
     <Compile Include="Models\ForumMessage.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForumMessageRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GestbookVM.cs" />
-    <Compile Include="Models\GuestbookMetadata.cs" />
     <Compile Include="Models\Guestbooks.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Guestbooks.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GuestbooksRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IRepository.EF6..cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IUnitOfWork.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MemberLoginVM.cs" />
     <Compile Include="Models\MemberRegisterVM.cs" />
@@ -201,6 +232,9 @@
     </Compile>
     <Compile Include="Models\Members.Partial.cs">
       <DependentUpon>EFGeneratePartialClass.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MembersRepository.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -217,9 +251,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RepositoryHelper.cs">
+      <DependentUpon>IRepository.EF6..tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\ForPaging.cs" />
+    <Compile Include="Services\ForumArticleService.cs" />
     <Compile Include="Services\GestbooksDBService.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\MemberService.cs" />
@@ -240,6 +278,10 @@
     <Content Include="Models\EFGeneratePartialClass.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>EFGeneratePartialClass.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\IRepository.EF6..tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IRepository.EF6..cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
