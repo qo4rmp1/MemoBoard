@@ -11,6 +11,6 @@ namespace WebApplication1.Models
 
 	public  interface IForumArticleRepository : IRepository<ForumArticle>
 	{
-
+        
 	}
 }

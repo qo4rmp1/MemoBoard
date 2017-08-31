@@ -1,0 +1,76 @@
+﻿@model WebApplication1.Models.FMessageVM
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="page-header">
+	<h4>留言</h4>
+</div>
+<dl class="dl-horizontal">
+
+	@if (!Model.DataList.Count.Equals(0))
+	{
+		@foreach (var item in Model.DataList)
+		{
+			<dt>
+				@(item.Members.Name) 說：
+			</dt>
+			<dd>@item.Content</dd>
+		}
+	}
+	else
+	{
+		<dt></dt>
+		<dd>尚未有留言</dd>
+	}
+</dl>
+
+<div class="col-xs-12 text-center">
+	<ul class="pagination">
+		<li class="first @(Model.Paging.NowPage > 1 ? "" : "disabled")">
+			@Ajax.ActionLink(" << ", "DataList", new { AId = Model.AId, Page = 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+		</li>
+		<li class="pervious @(Model.Paging.NowPage > 1 ? "" : "disabled")">
+			@Ajax.ActionLink(" < ", "DataList", new { AId = Model.AId, Page = Model.Paging.NowPage - 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+		</li>
+
+		@{
+			int Page;
+		}
+		@for (Page = Model.Paging.NowPage - 6; Page < Model.Paging.NowPage + 6; Page++)
+		{
+			if (Page > 0 && Page <= Model.Paging.MaxPage)
+			{
+				if (Page == Model.Paging.NowPage)
+				{
+					<li class="active"><a href="#">@Page</a></li>
+				}
+				else
+				{
+					<li>
+						@Ajax.ActionLink(Page.ToString(), "DataList", new { AId = Model.AId, Page = Page }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+					</li>
+				}
+			}
+		}
+
+		<li class="next @(Model.Paging.NowPage < Model.Paging.MaxPage ? "" : "disabled")">
+			@Ajax.ActionLink(" > ", "DataList", new { AId = Model.AId, Page = Model.Paging.NowPage + 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+
+		</li>
+		<li class="last @(Model.Paging.NowPage > 1 ? "" : "disabled")">
+			@Ajax.ActionLink(" >>", "DataList", new { AId = Model.AId, Page = Model.Paging.MaxPage }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
+		</li>
+	</ul>
+</div>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.AId)
+		</th>
+		<th></th>
+	</tr>
+
+
+
+</table>

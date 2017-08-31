@@ -3,7 +3,7 @@
 <div id="DataList">
 	<h2>留言板內容</h2>
 
-	@using (Ajax.BeginForm("GetDataList", "Guestbook", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList"}) )
+	@using (Ajax.BeginForm("GetDataList", "Guestbook", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" }))
 	{
 		<table class="table">
 			<tr>
@@ -41,7 +41,7 @@
 						<td>
 							@if (User.Identity.IsAuthenticated)
 							{
-								@Html.ActionLink("修改", "Edit", new { Id = item.Id }) 
+								@Html.ActionLink("修改", "Edit", new { Id = item.Id })
 
 								if (User.IsInRole("Admin"))
 								{
@@ -85,25 +85,25 @@
 							}
 							else
 							{
-								@Ajax.ActionLink(Page.ToString(), "GetDataList", new { Page = Page, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList"})
+								@Ajax.ActionLink(Page.ToString(), "GetDataList", new { Page = Page, Search = Model.Search }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "DataList" })
 							}
 						}
 					}
 				</td>
 			</tr>
 			<tr>
-		<td>
-			@if (Model.Paging.NowPage < Model.Paging.MaxPage)
-			{
-				@Html.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 })
+				<td>
+					@if (Model.Paging.NowPage < Model.Paging.MaxPage)
+					{
+						@Html.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 })
 
-				if (Model.Paging.NowPage != Model.Paging.MaxPage)
-				{
-					@Html.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage })
-				}
-			}
-		</td>
-	</tr>
+						if (Model.Paging.NowPage != Model.Paging.MaxPage)
+						{
+							@Html.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage })
+						}
+					}
+				</td>
+			</tr>
 		</table>
 
 						}

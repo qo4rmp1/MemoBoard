@@ -1,4 +1,6 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../js/home/article.js" />
+/// <reference path="../js/home/articlelist.js" />
 /// <reference path="bootstrap.js" />
 /// <reference path="jquery.unobtrusive-ajax.min.js" />
 /// <reference path="jquery.validate.js" />

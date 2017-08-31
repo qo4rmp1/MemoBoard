@@ -1,0 +1,84 @@
+﻿@model WebApplication1.Models.ForumArticle
+
+@{
+    ViewBag.Title = "Article";
+}
+
+<h2>Article</h2>
+
+<div>
+    <h4>ForumArticle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Watch)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Watch)
+        </dd>
+
+    </dl>
+</div>
+
+@if (User.Identity.IsAuthenticated && User.Identity.Name == Model.Account && Model.ForumMessage.Count == 0)
+{
+	@Ajax.ActionLink("修改留言", "Edit", "Home", new { Id = Model.AId }, new AjaxOptions
+{
+	UpdateTargetId = "EditArticleModal", InsertionMode = InsertionMode.Replace
+}, new { @class = "btn btn-default", @data_toggle = "modal", @data_target = "#EditArticleModal" })
+
+	<div class="modal fade" id="EditArticleModal" , tabindex="-1" role="dialog" aria-labelledby="CreateArticleModal" aria-hidden="true"></div>
+
+}
+<p>
+    @Html.ActionLink("返回文章列表", "Index")
+	<div id="MessageList">
+		@Html.Action("Index", "FMessage", new { Id = Model.AId })
+	</div>
+</p>
+@*載入驗證所需的Javascript*@
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/js/Home/Article.js")
+}
