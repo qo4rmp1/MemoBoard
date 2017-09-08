@@ -11,6 +11,9 @@ namespace WebApplication1
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            // 忽略elmah路徑
+            routes.IgnoreRoute("elmah");
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(

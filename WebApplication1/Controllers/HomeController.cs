@@ -14,7 +14,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            //return View();
+            throw new NotImplementedException();
         }
 
         public ActionResult List(string Search, int Page = 1)
