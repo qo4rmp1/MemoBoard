@@ -11,8 +11,12 @@ namespace WebApplication1.Controllers
 {
     public class ForumAlbumController : Controller
     {
-        private ForumAlbumService service = new ForumAlbumService();
+        private IForumAlbumService service;
 
+        public ForumAlbumController(IForumAlbumService Service)
+        {
+            this.service = Service;
+        }
         // GET: ForumnAlbum
         public ActionResult Index()
         {

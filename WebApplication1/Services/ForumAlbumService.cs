@@ -6,7 +6,7 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Services
 {
-    public class ForumAlbumService
+    public class ForumAlbumService : IForumAlbumService
     {
         private messageEntities db = new messageEntities();
 
@@ -45,5 +45,13 @@ namespace WebApplication1.Services
             db.ForumAlbum.Add(data);
             db.SaveChanges();
         }
+    }
+
+    public interface IForumAlbumService
+    {
+        ForumAlbum Find(int Id);
+        IQueryable<ForumAlbum> GetAllDataList(ForPaging Paging);
+        List<ForumAlbum> GetDataList(ForPaging Paging);
+        void UploadFile(string FileName, string Url, int Size, string Type, string Account);
     }
 }

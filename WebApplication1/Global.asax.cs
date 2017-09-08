@@ -21,6 +21,9 @@ namespace WebApplication1
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // 執行Unity.MVC4初始化
+            Bootstrapper.Initialise();
         }
 
         protected void Application_OnPostAuthenticateRequest(object sender, EventArgs e)
