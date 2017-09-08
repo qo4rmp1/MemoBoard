@@ -38,5 +38,44 @@ namespace WebApplication1
                 Thread.CurrentPrincipal = HttpContext.Current.User;
             }
         }
+
+        void ErrorLog_Filtering(object sender, Elmah.ExceptionFilterEventArgs e)
+        {
+            var exception = e.Exception.GetBaseException();
+
+            if (exception is HttpRequestValidationException)
+            {
+                e.Dismiss();
+            }
+        }
+
+        void ErrorMail_Filtering(object senderm, Elmah.ExceptionFilterEventArgs e)
+        {
+            var exception = e.Exception.GetBaseException();
+            var httpException = (HttpException)e.Exception;
+
+            if (httpException != null && httpException.GetHttpCode() == 404)
+            {
+                e.Dismiss();
+            }
+
+            if (exception is System.IO.FileNotFoundException ||
+                exception is HttpRequestValidationException ||
+                exception is HttpException)
+            {
+                e.Dismiss();
+            }
+        }
+
+        void ErrorMail_Mailing(object sender, Elmah.ErrorMailEventArgs e)
+        {
+            var exception = e.Error.Exception;
+
+            if (exception is NotImplementedException)
+            {
+                e.Mail.Priority = System.Net.Mail.MailPriority.High;
+                e.Mail.Subject = "ELMAH - Error 高度警示";
+            }
+        }
     }
 }
