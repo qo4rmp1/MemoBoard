@@ -28,21 +28,39 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                RegisterMember.newMember.Password = RegisterMember.Password;
-                RegisterMember.newMember.AuthCode = new Guid().ToString();
-                MemberService.Register(RegisterMember.newMember);UriBuilder ValidateUrl = new UriBuilder(Request.Url)
+                Members newMember = new Members();
+                if (TryUpdateModel<Members>(newMember))
                 {
-                    Path = Url.Action("EmailValidate", "Member", new { UserName = RegisterMember.newMember.Account, AuthCode = RegisterMember.newMember.AuthCode })
-                };
+                    newMember.AuthCode = "";
+                    MemberService.Register(newMember);
+                    UriBuilder ValidateUrl = new UriBuilder(Request.Url)
+                    {
+                        Path = Url.Action("EmailValidate", "Member", new { UserName = newMember.Account, AuthCode = newMember.AuthCode })
+                    };
 
-                string TempMail = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/MemberRegisterEMailTemplate.htm"));
-                string MailBody = MailService.GetRegisterMailBody(
-                    TempMail,
-                    RegisterMember.newMember.Account,
-                    ValidateUrl.ToString().Replace("%3F", "?")
-                );
+                    string TempMail = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/MemberRegisterEMailTemplate.htm"));
+                    string MailBody = MailService.GetRegisterMailBody(
+                        TempMail,
+                        newMember.Account,
+                        ValidateUrl.ToString().Replace("%3F", "?")
+                    );
+                }
+                //RegisterMember.newMember.Password = RegisterMember.Password;
+                //RegisterMember.newMember.AuthCode = "1";  //new Guid().ToString();
+                //MemberService.Register(RegisterMember.newMember);
+                //UriBuilder ValidateUrl = new UriBuilder(Request.Url)
+                //{
+                //    Path = Url.Action("EmailValidate", "Member", new { UserName = RegisterMember.newMember.Account, AuthCode = RegisterMember.newMember.AuthCode })
+                //};
 
-                MailService.SendRegisterMail(MailBody, RegisterMember.newMember.Email);
+                //string TempMail = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/MemberRegisterEMailTemplate.htm"));
+                //string MailBody = MailService.GetRegisterMailBody(
+                //    TempMail,
+                //    RegisterMember.newMember.Account,
+                //    ValidateUrl.ToString().Replace("%3F", "?")
+                //);
+
+                //MailService.SendRegisterMail(MailBody, RegisterMember.newMember.Email);
                 TempData["RegisterState"] = "註冊成功，請至信箱驗證信件";
                 return RedirectToAction("RegisterResult");
             }
@@ -60,7 +78,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult AccountCheck(MemberRegisterVM Member)
         {
-            return Json(MemberService.AccountCheck(Member.newMember.Account), JsonRequestBehavior.AllowGet);
+            return Json(MemberService.AccountCheck(Member.Account), JsonRequestBehavior.AllowGet);
+            //return Json(MemberService.AccountCheck(Member.newMember.Account), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult EmailValidate(string UserName, string AuthCode)

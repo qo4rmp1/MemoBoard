@@ -42,11 +42,22 @@ namespace WebApplication1.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Title, Content")]ForumArticle Data)
+        //public ActionResult Create([Bind(Include = "Title,Content")]ForumArticle Data)
+        //{
+        //    Data.Account = User.Identity.Name;
+        //    service.Insert(Data);
+        //    return RedirectToAction("Index");
+        //}
+        public ActionResult Create(FormCollection form)//[Bind(Include = "Title, Content")]ForumArticle Data
         {
-            Data.Account = User.Identity.Name;
-            service.Insert(Data);
-            return RedirectToAction("Index");
+            ForumArticle Data = new ForumArticle();
+            if (TryUpdateModel(Data, new string[] { "Title", "Content" }))
+            {
+                Data.Account = User.Identity.Name;
+                service.Insert(Data);
+                return RedirectToAction("Index");
+            }
+            return View(form);
         }
 
         [Authorize]

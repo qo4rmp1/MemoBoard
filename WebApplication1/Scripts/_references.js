@@ -1,4 +1,6 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../js/album/albumcarousel.js" />
+/// <reference path="../js/album/albumlist.js" />
 /// <reference path="../js/home/article.js" />
 /// <reference path="../js/home/articlelist.js" />
 /// <reference path="bootstrap.js" />

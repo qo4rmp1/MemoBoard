@@ -1,7 +1,7 @@
 ﻿@model WebApplication1.Models.FArticleVM
 
 @{
-	ViewBag.Title = "Index";
+	ViewBag.Title = "文章首頁";
 }
 
 <div class="page-header">
@@ -11,19 +11,22 @@
 @using (Ajax.BeginForm("List", "Home", new AjaxOptions { UpdateTargetId = "ArticleListBlock", InsertionMode = InsertionMode.Replace }))
 {
 	<div class="form-group">
-		@Html.LabelFor(model => model.Search, new { @class = "col-xs-4 col-md-1 form-control" })
-		<div>
-			@Html.TextBoxFor(model => model.Search)
-			<div>
-				<button type="submit" value="搜尋"></button>
+		@Html.LabelFor(model => model.Search, new { @class = "col-xs-4 col-md-1 form-label" })
+		<div class="col-xs-8 col-md-3 input-group">
+			@Html.TextBoxFor(model => model.Search, new { @class = "form-control" })
+			<div class="input-group-btn">
+				<button type="submit" value="搜尋" class="btn btn-primary"></button>
 			</div>
 		</div>
 	</div>
 }
 
+
+
+
 @*載入文章列表內容*@
 <div id="ArticleListBlock">
-	@Html.Action("List", "Home");
+	@Html.Action("List", "Home")
 </div>
 
 @if (User.Identity.IsAuthenticated)
@@ -32,19 +35,17 @@
 {
 	UpdateTargetId = "CreateArticleModal",
 	InsertionMode = InsertionMode.Replace
-}, new { @class = "btn btn-default", @data_toggle = "modal", @data_target = "#CreateArticleModal" } )
+}, new { @class = "btn btn-default", @data_toggle = "modal", @data_target = "#CreateArticleModal" })
 
-	<div class="modal fade" id="CreateArticleModal", tabindex="-1" role="dialog" aria-labelledby="CreateArticleModal" aria-hidden="true"></div> 
+	<div class="modal fade" id="CreateArticleModal" , tabindex="-1" role="dialog" aria-labelledby="CreateArticleModal" aria-hidden="true"></div>
 }
 else
 {
 	<text>要新增文章請先</text>
-	@Html.ActionLink("登入", "Login", "Members")
+	@Html.ActionLink("登入", "Login", "Member")
 }
-<p>
-	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-	@Html.ActionLink("Back to List", "Index")
-</p>
+
+
 
 @*載入驗證所需的Javascript*@
 @section Scripts {

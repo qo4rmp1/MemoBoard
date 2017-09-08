@@ -25,13 +25,11 @@ namespace WebApplication1.Models
         public string Content { get; set; }
         
         [StringLength(30, ErrorMessage="欄位長度不得大於 30 個字元")]
-        [Required]
+        //[Required]
         [DisplayName("作者")]
         public string Account { get; set; }
-        [Required]
         [DisplayName("發表時間")]
         public System.DateTime CreateTime { get; set; }
-        [Required]
         [DisplayName("觀看人數")]
         public int Watch { get; set; }
     

@@ -29,11 +29,29 @@ namespace WebApplication1.Controllers
             {
                 string filename = Path.GetFileName(upload.FileName);
                 string url = Path.Combine(Server.MapPath("~/Upload/"), filename);
-
                 upload.SaveAs(url);
                 fileservice.UploadFile(filename, url, upload.ContentLength, upload.ContentType);
             }
             return RedirectToAction("Index");
+
+            /*
+            //取得目前 HTTP 要求的 HttpRequestBase 物件
+            foreach (string file in Request.Files)
+            {
+                var fileContent = Request.Files[file];
+                if (fileContent != null && fileContent.ContentLength > 0)
+                {
+                    // 取得的檔案是stream
+                    Stream stream = fileContent.InputStream;                    
+                    var fileName = Path.GetFileName(file);
+                    var path = Path.Combine(Server.MapPath("~/Files/"), fileName);
+                    using (var fileStream = System.IO.File.Create(path))
+                    {
+                        stream.CopyTo(fileStream);
+                    }
+                }
+            }
+             */
         }
 
         public ActionResult DownloadFile(int Id)

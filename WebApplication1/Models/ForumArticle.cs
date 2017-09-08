@@ -24,8 +24,8 @@ namespace WebApplication1.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public string Account { get; set; }
-        public System.DateTime CreateTime { get; set; }
-        public int Watch { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<int> Watch { get; set; }
     
         public virtual Members Members { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

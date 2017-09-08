@@ -2,8 +2,9 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    
+
     [MetadataType(typeof(MembersMetaData))]
     public partial class Members
     {
@@ -17,7 +18,8 @@ namespace WebApplication1.Models
         public string Account { get; set; }
         
         [StringLength(40, ErrorMessage="欄位長度不得大於 40 個字元")]
-        [Required]
+        [DisplayName("密碼")]
+        [Required(ErrorMessage = "請輸入密碼")]
         public string Password { get; set; }
         
         [StringLength(20, ErrorMessage="欄位長度不得大於 20 個字元")]
@@ -28,10 +30,10 @@ namespace WebApplication1.Models
         [Required]
         public string Email { get; set; }
         
-        [StringLength(10, ErrorMessage="欄位長度不得大於 10 個字元")]
-        [Required]
+        [StringLength(100, ErrorMessage="欄位長度不得大於 100 個字元")]
+        //[Required]
         public string AuthCode { get; set; }
-        [Required]
+        //[Required]
         public bool IsAdmin { get; set; }
     
         public virtual ICollection<Guestbooks> Guestbooks { get; set; }

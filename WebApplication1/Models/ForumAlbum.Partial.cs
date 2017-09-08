@@ -2,8 +2,9 @@ namespace WebApplication1.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    
+
     [MetadataType(typeof(ForumAlbumMetaData))]
     public partial class ForumAlbum
     {
@@ -20,6 +21,7 @@ namespace WebApplication1.Models
         [Required]
         public string Url { get; set; }
         [Required]
+        [DisplayName("大小(Byte)")]
         public int Size { get; set; }
         
         [StringLength(100, ErrorMessage="欄位長度不得大於 100 個字元")]

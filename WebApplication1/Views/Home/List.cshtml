@@ -1,0 +1,72 @@
+﻿@model WebApplication1.Models.FArticleVM
+
+<table class="table">
+	<tr>
+		<th>@Html.DisplayNameFor(model => model.DataList[0].AId)</th>
+		<th>@Html.DisplayNameFor(model => model.DataList[0].Members.Name)</th>
+		<th>@Html.DisplayNameFor(model => model.DataList[0].Title)</th>
+		<th>@Html.DisplayNameFor(model => model.DataList[0].Content)</th>
+	</tr>
+	@foreach (var item in Model.DataList)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.AId)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Members.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Title)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Content)
+			</td>
+		</tr>
+	}
+	<tr>
+		<td></td>
+		<td>
+			@if (Model.Paging.NowPage > 1)
+			{
+				if (Model.Paging.NowPage != 1)
+				{
+					@*@Html.ActionLink("<<", "Index", new { Page = 1 })*@
+					@Ajax.ActionLink(" << ", "List", new { Page = 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ArticleListBlock" })
+				}
+				@Ajax.ActionLink("<", "List", new { Page = Model.Paging.NowPage - 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ArticleListBlock" })
+				@*@Html.ActionLink("<", "Index", new { Page = Model.Paging.NowPage - 1 })*@
+			}
+		</td>
+		<td>
+			@for (int i = Model.Paging.NowPage - 6; i < Model.Paging.NowPage + 6; i++)
+			{
+				if (i > 0 && i <= Model.Paging.MaxPage)
+				{
+					if (i == Model.Paging.NowPage)
+					{
+						<b>@i</b>
+					}
+					else
+					{
+						@Ajax.ActionLink(i.ToString(), "List", new { Page = i }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ArticleListBlock" })
+						@*@Html.ActionLink(i.ToString(), "Index", new { Page = i })*@
+					}
+				}
+			}
+		</td>
+		<td>
+			@if (Model.Paging.NowPage < Model.Paging.MaxPage)
+			{
+				@Ajax.ActionLink(">", "List", new { Page = Model.Paging.NowPage + 1 }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ArticleListBlock" })
+				@*@Html.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 })*@
+
+				if (Model.Paging.NowPage != Model.Paging.MaxPage)
+				{
+					@Ajax.ActionLink(">>", "List", new { Page = Model.Paging.MaxPage }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "ArticleListBlock" })
+					@*@Html.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage })*@
+				}
+			}
+		</td>
+	</tr>
+</table>

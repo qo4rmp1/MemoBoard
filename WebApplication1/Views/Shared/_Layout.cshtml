@@ -21,10 +21,23 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+					<li>@Html.ActionLink("首頁", "Index", "Home")</li>
+					<li>@Html.ActionLink("相簿", "Index", "ForumAlbum")</li>
+					<li>@Html.ActionLink("輪播", "Carousel", "ForumAlbum")</li>
 					<li>@Html.ActionLink("Message", "Index", "Message")</li>
                     <li>@Html.ActionLink("Guestbook", "Index", "Guestbook")</li>
                     <li>@Html.ActionLink("File", "Index", "File")</li>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<li>@Html.ActionLink("登出", "Logout", "Member")</li>
+					}
+					else
+					{
+						<li>@Html.ActionLink("登出", "Login", "Member")</li>
+					}
+
                 </ul>
+				@*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>

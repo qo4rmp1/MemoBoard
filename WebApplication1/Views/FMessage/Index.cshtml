@@ -1,0 +1,15 @@
+﻿<div id="dataList">
+	@Html.Action("DataList", new { AId = ViewData["AId"]})
+</div>
+
+<div id="MessageCreate">
+	@if (User.Identity.IsAuthenticated)
+	{
+		@Html.Action("Upload", new { AId = ViewData["AId"]})
+	}
+	else
+	{
+		<text>要留言請先</text>
+		@Html.ActionLink("登入", "Login", "Member")
+}
+</div>

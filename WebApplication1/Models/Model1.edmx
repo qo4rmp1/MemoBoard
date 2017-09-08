@@ -45,8 +45,8 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Account" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="CreateTime" Type="datetime" Nullable="false" />
-          <Property Name="Watch" Type="int" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Watch" Type="int" />
         </EntityType>
         <EntityType Name="ForumMessage">
           <Key>
@@ -282,8 +282,8 @@
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Account" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Watch" Type="Int32" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Watch" Type="Int32" />
           <NavigationProperty Name="Members" Relationship="messageModel.FK_FM_Account" FromRole="ForumArticle" ToRole="Members" />
           <NavigationProperty Name="ForumMessage" Relationship="messageModel.FK_MA_AId" FromRole="ForumArticle" ToRole="ForumMessage" />
         </EntityType>

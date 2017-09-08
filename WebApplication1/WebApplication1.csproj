@@ -142,6 +142,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FMessageController.cs" />
+    <Compile Include="Controllers\ForumnAlbumController.cs" />
     <Compile Include="Controllers\GuestbookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\ForumMessageRepository.cs">
       <DependentUpon>IRepository.EF6..tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForumnAlbumVM.cs" />
     <Compile Include="Models\GestbookVM.cs" />
     <Compile Include="Models\Guestbooks.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -260,8 +262,10 @@
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\FMessageService.cs" />
     <Compile Include="Services\ForPaging.cs" />
+    <Compile Include="Services\ForumAlbumService.cs" />
     <Compile Include="Services\ForumArticleService.cs" />
     <Compile Include="Services\GestbooksDBService.cs" />
+    <Compile Include="Services\ImageActionLinkHelper.cs" />
     <Compile Include="Services\MailService.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\messageDBService.cs" />
@@ -278,6 +282,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="js\Album\AlbumCarousel.js" />
+    <Content Include="js\Album\AlbumList.js" />
     <Content Include="js\Home\Article.js" />
     <Content Include="js\Home\ArticleList.js" />
     <Content Include="Models\EFGeneratePartialClass.tt">
@@ -356,8 +362,16 @@
     <Content Include="Views\Home\ShowPopularity.cshtml" />
     <Content Include="Views\FMessage\DataList.cshtml" />
     <Content Include="Views\FMessage\Create.cshtml" />
+    <Content Include="Views\ForumAlbum\Index.cshtml" />
+    <Content Include="Views\FMessage\Index.cshtml" />
+    <Content Include="Views\ForumAlbum\List.cshtml" />
+    <Content Include="Views\ForumAlbum\Upload.cshtml" />
+    <Content Include="Views\ForumAlbum\Carousel.cshtml" />
+    <Content Include="Views\Home\List.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\ForumnAlbum\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

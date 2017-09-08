@@ -1,0 +1,22 @@
+﻿@{ 
+	ViewBag.Title = "相簿首頁";
+}
+
+@*載入驗證所需的Javascript*@
+@section Scripts {
+	@*@Scripts.Render("~/bundles/jqueryval")*@
+	@Scripts.Render("~/js/Album/AlbumList.js")
+}
+
+<div class="page-header">
+	<h1>相簿</h1>
+</div>
+
+<div class="col-xs-12 text-center hidden" id="showImgBlock">
+	<img id="showImg" style="max-width:100%" src="" alt="" />
+</div>
+
+@Html.Action("Upload", "ForumAlbum")
+<div id="AlbumListBlock">
+	@Html.Action("List", "ForumAlbum")
+</div>
